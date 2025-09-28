@@ -1,0 +1,112 @@
+/* General Layout */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.container {
+  text-align: center;
+  background: white;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+  max-width: 450px;
+  width: 100%;
+}
+
+/* Titles */
+.title {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+.subtitle {
+  margin: 15px 0;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Mood Buttons */
+.mood-buttons button {
+  font-size: 2rem;
+  margin: 8px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  background: #f5f5f5;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.mood-buttons button:hover {
+  background: #66a6ff;
+  color: white;
+  transform: scale(1.2);
+}
+
+/* Text Input */
+.text-input {
+  margin-top: 20px;
+}
+.text-input input {
+  padding: 10px;
+  width: 65%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.text-input button {
+  padding: 10px 14px;
+  margin-left: 8px;
+  border: none;
+  background: #66a6ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.text-input button:hover {
+  background: #4a8ae2;
+}
+
+/* Result Box */
+.result-box {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f9fbff;
+  text-align: left;
+  box-shadow: inset 0px 2px 6px rgba(0,0,0,0.05);
+}
+.result-box h2 {
+  margin: 0 0 10px;
+  color: #444;
+}
+.result-box p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #555;
+}
+.result-box a {
+  color: #66a6ff;
+  text-decoration: none;
+}
+.result-box a:hover {
+  text-decoration: underline;
+}
+.playlist-box {
+  margin-top: 10px;
+}
+
+.playlist-box iframe {
+  border-radius: 12px;
+  width: 100%;
+  height: 380px;
+  border: none;
+}

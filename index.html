@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mood-Based Recommender</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h2 class="title">🎭 Mood-Based Recommender</h2>
+    <h3 class="subtitle">How are you feeling today?</h3>
+
+    <!-- Manual Mood Selection -->
+    <div class="mood-buttons">
+      <button onclick="selectMood('happy')">😊</button>
+      <button onclick="selectMood('sad')">😢</button>
+      <button onclick="selectMood('stressed')">😡</button>
+      <button onclick="selectMood('energetic')">⚡</button>
+    </div>
+
+    <!-- Text Input for NLP -->
+    <div class="text-input">
+      <input type="text" id="moodText" placeholder="Type how you feel..." />
+      <button onclick="submitText()">Submit</button>
+    </div>
+
+    <!-- Result Display -->
+    <div id="result" class="result-box">
+      <h2>Detected Mood: <span id="detectedMood">-</span></h2>
+      <p><strong>🍴 Food Suggestion:</strong> <span id="food">-</span></p>
+      <p><strong>🎶 Playlist:</strong></p>
+      <div id="playlistEmbed" class="playlist-box">
+        <p>-</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
