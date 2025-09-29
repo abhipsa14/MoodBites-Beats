@@ -1,41 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mood-Based Recommender</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodBites&Beats</title>
+    <link rel="icon" href="statics/icon.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color:gradient(to right, #b99898 0%, #fcb69f 100%);
+        }
+        .container {
+            background: rgb(228, 233, 186);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .mood-section {
+            margin-bottom: 30px;
+        }
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .emoji-btn {
+            font-size: 2em;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .emoji-btn:hover {
+            border-color: #007bff;
+            transform: scale(1.1);
+        }
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .submit-btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+        .mood-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .mood-tag {
+            padding: 8px 16px;
+            background: #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .mood-tag:hover {
+            border-color: #007bff;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h2 class="title">🎭 Mood-Based Recommender</h2>
-    <h3 class="subtitle">How are you feeling today?</h3>
+  <header>
+      <h1>Mood Bites and Beats</h1>
+      <p>Choose an emoji, describe your mood, or pick a mood tag to get personalized food and music recommendations!</p>
+  </header>
+      
+        
+        <!-- Emoji Selection -->
+        <div class="mood-section">
+            <h2>How are you feeling? Choose an emoji:</h2>
+            <div class="emoji-grid">
+                <button class="emoji-btn" onclick="selectMood('😊')">😊</button>
+                <button class="emoji-btn" onclick="selectMood('😢')">😢</button>
+                <button class="emoji-btn" onclick="selectMood('😠')">😠</button>
+                <button class="emoji-btn" onclick="selectMood('😨')">😨</button>
+                <button class="emoji-btn" onclick="selectMood('😴')">😴</button>
+                <button class="emoji-btn" onclick="selectMood('😍')">😍</button>
+                <button class="emoji-btn" onclick="selectMood('🎉')">🎉</button>
+                <button class="emoji-btn" onclick="selectMood('❤️')">❤️</button>
+            </div>
+        </div>
 
-    <!-- Manual Mood Selection -->
-    <div class="mood-buttons">
-      <button onclick="selectMood('happy')">😊</button>
-      <button onclick="selectMood('sad')">😢</button>
-      <button onclick="selectMood('stressed')">😡</button>
-      <button onclick="selectMood('energetic')">⚡</button>
-    </div>
+        <!-- Text Input -->
+        <div class="mood-section">
+            <h2>Or describe how you feel:</h2>
+            <textarea 
+                id="moodText" 
+                class="text-input" 
+                placeholder="Type how you're feeling... (e.g., 'I had a great day and feel amazing!')"
+                onkeypress="handleKeyPress(event)"
+                rows="3"
+            ></textarea>
+            <button class="submit-btn" onclick="submitText()">Analyze My Mood</button>
+        </div>
 
-    <!-- Text Input for NLP -->
-    <div class="text-input">
-      <input type="text" id="moodText" placeholder="Type how you feel..." />
-      <button onclick="submitText()">Submit</button>
-    </div>
+        <!-- Quick Mood Tags -->
+        <div class="mood-section">
+            <h2>Or pick a mood directly:</h2>
+            <div class="mood-tags">
+                <span class="mood-tag" onclick="selectMoodDirect('happy')">Happy</span>
+                <span class="mood-tag" onclick="selectMoodDirect('sad')">Sad</span>
+                <span class="mood-tag" onclick="selectMoodDirect('stressed')">Stressed</span>
+                <span class="mood-tag" onclick="selectMoodDirect('energetic')">Energetic</span>
+                <span class="mood-tag" onclick="selectMoodDirect('romantic')">Romantic</span>
+                <span class="mood-tag" onclick="selectMoodDirect('angry')">Angry</span>
+                <span class="mood-tag" onclick="selectMoodDirect('tired')">Tired</span>
+            </div>
+        </div>
 
-    <!-- Result Display -->
-    <div id="result" class="result-box">
-      <h2>Detected Mood: <span id="detectedMood">-</span></h2>
-      <p><strong>🍴 Food Suggestion:</strong> <span id="food">-</span></p>
-      <p><strong>🎶 Playlist:</strong></p>
-      <div id="playlistEmbed" class="playlist-box">
-        <p>-</p>
-      </div>
-    </div>
-  </div>
+        <!-- Results Section -->
+        <div id="resultsSection" class="results">
+            <h2>Your Recommendations</h2>
+            <p><strong>Detected Mood:</strong> <span id="detectedMood">-</span></p>
+            <p><strong>Food Suggestion:</strong> <span id="food">-</span></p>
+            <p><strong>Music Playlist:</strong></p>
+            <div id="playlistEmbed"></div>
+        </div>
+  
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
